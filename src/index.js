@@ -1,7 +1,9 @@
 const form = document.querySelector("#twitter_form");
 const textArea = document.querySelector("#input_tweet");
+const button = document.querySelector("#submit");
 let counterContainer = document.querySelector("#char_counter");
 let count = 0;
+const charLimit = charLimit80;
 // Increase/decrease count value
 function counting(action) {
   if (action === "up") {
@@ -12,9 +14,11 @@ function counting(action) {
 }
 // Counter color update
 function counterState(count) {
-  count > 280
-    ? (counterContainer.style.color = "red")
-    : (counterContainer.style.color = "black");
+  if (count > charLimit) {
+    counterContainer.style.color = "red";
+  } else {
+    counterContainer.style.color = "black";
+  }
 }
 // Update counter value
 function counterUpdate(count) {
@@ -24,15 +28,20 @@ function counterUpdate(count) {
 // Textarea listener
 // Updating character counter
 textArea.addEventListener("keydown", function() {
-  if (event.which === 8 && count > 0) {
-    counting("down");
-    counterUpdate(count);
+  if (count > charLimit) {
+    button.setAttribute("disabled", true);
+  } else {
+    if (event.which === 8 && count > 0) {
+      counting("down");
+      counterUpdate(count);
+    }
+    if (event.which !== 8) {
+      counting("up");
+      counterUpdate(count);
+    }
+    counterState(count);
+    button.setAttribute("disabled", false);
   }
-  if (event.which !== 8) {
-    counting("up");
-    counterUpdate(count);
-  }
-  counterState(count);
 });
 
 textArea.addEventListener("change", function(event) {
