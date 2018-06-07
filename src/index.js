@@ -3,7 +3,7 @@ const textArea = document.querySelector("#input_tweet");
 const button = document.querySelector("#submit");
 let counterContainer = document.querySelector("#char_counter");
 let count = 0;
-const charLimit = charLimit80;
+const charLimit = 280;
 // Increase/decrease count value
 function counting(action) {
   if (action === "up") {
