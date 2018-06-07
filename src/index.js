@@ -46,24 +46,28 @@ form.addEventListener("submit", function(event) {
 
   // Get new tweet and send to timeline
   const timeline = document.querySelector("#tweet_timeline");
-
   let tweet = textArea.value;
+
   // clear form
   textArea.value = "";
 
-  // Sorting tweets in ascending order
-  if (timeline.children.length > 0) {
-    const tweetHolder = document.createElement("li");
-    timeline.insertBefore(tweetHolder, timeline.children[0]);
-    tweetHolder.innerHTML = tweet;
-  } else {
-    const tweetHolder = document.createElement("li");
-    timeline.appendChild(tweetHolder);
-    tweetHolder.innerHTML = tweet;
-  }
+  // Inserting tweets in ascending order
+  const tweetHolder = document.createElement("li");
+  tweetHolder.innerHTML = tweet;
+  timeline.prepend(tweetHolder);
+  // => Old solucion with insertBefore
+  //   if (timeline.children.length > 0) {
+  //     const tweetHolder = document.createElement("li");
+  //     timeline.insertBefore(tweetHolder, timeline.children[0]);
+  //     tweetHolder.innerHTML = tweet;
+  //   } else {
+  //     const tweetHolder = document.createElement("li");
+  //     timeline.appendChild(tweetHolder);
+  //     tweetHolder.innerHTML = tweet;
+  //   }
 
   // Reset counter
   count = 0;
-  counterContainer.innerHTML = count;
+  counterUpdate(count);
   counterState(count);
 });
