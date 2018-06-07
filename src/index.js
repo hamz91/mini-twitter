@@ -11,7 +11,13 @@ form.addEventListener("submit", function(event) {
   let tweet = textArea.value;
   textArea.value = "";
 
-  const tweetHolder = document.createElement("li");
-  timeline.appendChild(tweetHolder);
-  tweetHolder.innerHTML = tweet;
+  if (timeline.children.length > 0) {
+    const tweetHolder = document.createElement("li");
+    timeline.insertBefore(tweetHolder, timeline.children[0]);
+    tweetHolder.innerHTML = tweet;
+  } else {
+    const tweetHolder = document.createElement("li");
+    timeline.appendChild(tweetHolder);
+    tweetHolder.innerHTML = tweet;
+  }
 });
