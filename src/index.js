@@ -1,13 +1,42 @@
 const form = document.querySelector("#twitter_form");
 const textArea = document.querySelector("#input_tweet");
-let counter = document.querySelector("#char_counter");
+let counterContainer = document.querySelector("#char_counter");
 let count = 0;
+// Increase/decrease count value
+function counting(action) {
+  if (action === "up") {
+    count++;
+    return;
+  }
+  count--;
+}
+// Counter color update
+function counterState(count) {
+  count > 280
+    ? (counterContainer.style.color = "red")
+    : (counterContainer.style.color = "black");
+}
+// Update counter value
+function counterUpdate(count) {
+  counterContainer.innerHTML = count;
+}
 
 // Textarea listener
 // Updating character counter
 textArea.addEventListener("keydown", function() {
-  count++;
-  counter.innerHTML = count;
+  if (event.which === 8 && count > 0) {
+    counting("down");
+    counterUpdate(count);
+  }
+  if (event.which !== 8) {
+    counting("up");
+    counterUpdate(count);
+  }
+  counterState(count);
+});
+
+textArea.addEventListener("change", function(event) {
+  counterContainer.innerHTML = event.target.value.length;
 });
 
 // Form listener
@@ -35,5 +64,6 @@ form.addEventListener("submit", function(event) {
 
   // Reset counter
   count = 0;
-  counter.innerHTML = count;
+  counterContainer.innerHTML = count;
+  counterState(count);
 });
