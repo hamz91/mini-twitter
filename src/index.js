@@ -29,7 +29,7 @@ function counterUpdate(count) {
 // Updating character counter
 textArea.addEventListener("keydown", function() {
   if (count > charLimit) {
-    button.setAttribute("disabled", true);
+    button.disabled = true;
   } else {
     if (event.which === 8 && count > 0) {
       counting("down");
@@ -40,13 +40,13 @@ textArea.addEventListener("keydown", function() {
       counterUpdate(count);
     }
     counterState(count);
-    button.setAttribute("disabled", false);
+    button.disabled = false;
   }
 });
 
-textArea.addEventListener("change", function(event) {
-  counterContainer.innerHTML = event.target.value.length;
-});
+// textArea.addEventListener("change", function(event) {
+//   counterContainer.innerHTML = event.target.value.length;
+// });
 
 // Form listener
 form.addEventListener("submit", function(event) {
