@@ -3,50 +3,32 @@ const textArea = document.querySelector("#input_tweet");
 const button = document.querySelector("#submit");
 let counterContainer = document.querySelector("#char_counter");
 let count = 0;
-const charLimit = 280;
-// Increase/decrease count value
-function counting(action) {
-  if (action === "up") {
-    count++;
-    return;
-  }
-  count--;
-}
+const charLimit = textArea.getAttribute("maxlength");
+
 // Counter color update
 function counterState(count) {
-  if (count > charLimit) {
+  if (count == charLimit) {
     counterContainer.style.color = "red";
   } else {
     counterContainer.style.color = "black";
   }
 }
 // Update counter value
-function counterUpdate(count) {
-  counterContainer.innerHTML = count;
+function counterUpdate() {
+  counterContainer.innerHTML = event.target.value.length;
 }
 
 // Textarea listener
 // Updating character counter
-textArea.addEventListener("keydown", function() {
-  if (count > charLimit) {
-    button.disabled = true;
-  } else {
-    if (event.which === 8 && count > 0) {
-      counting("down");
-      counterUpdate(count);
-    }
-    if (event.which !== 8) {
-      counting("up");
-      counterUpdate(count);
-    }
-    counterState(count);
-    button.disabled = false;
-  }
+textArea.addEventListener("input", function() {
+  //   if (count > charLimit) {
+  //     button.disabled = true;
+  //   } else {
+  counterUpdate();
+  counterState(event.target.value.length);
+  button.disabled = false;
+  //   }
 });
-
-// textArea.addEventListener("change", function(event) {
-//   counterContainer.innerHTML = event.target.value.length;
-// });
 
 // Form listener
 form.addEventListener("submit", function(event) {
